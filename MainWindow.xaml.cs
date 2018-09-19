@@ -110,10 +110,10 @@ namespace VHelperMaker
             return result.ToString();
         }
 
-        private string AddK2Log(string verbosity)
+        private string AddK2Log(string verbosity, string function_prefix)
         {
             StringBuilder result = new StringBuilder();
-            result.Append("void U" + FileNameBox.Text + "::K2_" + verbosity + "(UObject* WorldContextObject, const FString& String)");
+            result.Append("void U" + FileNameBox.Text + "::K2_" + function_prefix + verbosity + "(UObject* WorldContextObject, const FString& String)");
             result.Append(NewLine);
             result.Append("{");
             result.Append(NewLine);
@@ -234,13 +234,13 @@ namespace VHelperMaker
                     hResult.Append(Tab + VHelperMaker.Properties.Resources.BlueprintLoggingHeaders);
 
                     cppResult.Append(NextLine);
-                    cppResult.Append(AddK2Log("Log"));
+                    cppResult.Append(AddK2Log("Log", ""));
                     cppResult.Append(NextLine);
-                    cppResult.Append(AddK2Log("Warning"));
+                    cppResult.Append(AddK2Log("Warning", "Log"));
                     cppResult.Append(NextLine);
-                    cppResult.Append(AddK2Log("Error"));
+                    cppResult.Append(AddK2Log("Error", "Log"));
                     cppResult.Append(NextLine);
-                    cppResult.Append(AddK2Log("Fatal"));
+                    cppResult.Append(AddK2Log("Fatal", "Log"));
                 }
 
                 hResult.Append(NewLine);
