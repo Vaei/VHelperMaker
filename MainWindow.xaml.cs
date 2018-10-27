@@ -78,7 +78,7 @@ namespace VHelperMaker
             string close = "} \\";
 
             StringBuilder result = new StringBuilder();
-            result.Append("#define LOG" + LogNameBox.Text);
+            result.Append("#define LOG" + LogNameBox.Text.ToUpper());
             if(verbosity != "Log")
             {
                 result.Append("_" + verbosity.ToUpper());
@@ -93,7 +93,7 @@ namespace VHelperMaker
             result.Append(NewLine);
             result.Append(Tab + open);
             result.Append(NewLine);
-            result.Append(Tab + Tab + "UE_LOG(" + LogNameBox.Text + ", " + verbosity + ", TEXT(\"%s%s() : %s\"), LOG_NETMODE_WORLD, LOG_FUNC_NAME, *GetNameSafe(this)); \\");
+            result.Append(Tab + Tab + "UE_LOG(" + LogNameBox.Text.ToUpper() + ", " + verbosity + ", TEXT(\"%s%s() : %s\"), LOG_NETMODE_WORLD, LOG_FUNC_NAME, *GetNameSafe(this)); \\");
             result.Append(NewLine);
             result.Append(Tab + close);
             result.Append(NewLine);
@@ -101,7 +101,7 @@ namespace VHelperMaker
             result.Append(NewLine);
             result.Append(Tab + open);
             result.Append(NewLine);
-            result.Append(Tab + Tab + "UE_LOG(" + LogNameBox.Text + ", " + verbosity + ", TEXT(\"%s%s() : %s\"), LOG_NETMODE_WORLD, LOG_FUNC_NAME, *LogString); \\");
+            result.Append(Tab + Tab + "UE_LOG(" + LogNameBox.Text.ToUpper() + ", " + verbosity + ", TEXT(\"%s%s() : %s\"), LOG_NETMODE_WORLD, LOG_FUNC_NAME, *LogString); \\");
             result.Append(NewLine);
             result.Append(Tab + close);
             result.Append(NewLine);
@@ -253,7 +253,8 @@ namespace VHelperMaker
                 if (IsDirectoryWritable(OutputBox.Text))
                 {
                     string filePath = OutputBox.Text + FileNameBox.Text;
-                    // Write .h
+                    // Clear existing .h then Write .h
+                    System.IO.File.Create(filePath + ".h").Close();
                     System.IO.File.WriteAllText(filePath + ".h", hResult.ToString());
 
                     // Search for matching Private folder for .cpp
@@ -281,7 +282,8 @@ namespace VHelperMaker
                         cppPath = lastDirectory + "Private\\" + FileNameBox.Text + ".cpp";
                     }
 
-                    // Write .cpp
+                    // Clear existing .cpp then Write .cpp
+                    System.IO.File.Create(cppPath).Close();
                     System.IO.File.WriteAllText(cppPath, cppResult.ToString());
 
                     // Open the output folder
