@@ -150,8 +150,12 @@ namespace VHelperMaker
             }
 
             hResult.Append("#include \"Engine/Engine.h\"");
-            hResult.Append(NewLine);
-            hResult.Append("#include \"" + FileNameBox.Text + ".generated.h\"");
+
+            if (needsHelperClass)
+            {
+                hResult.Append(NewLine);
+                hResult.Append("#include \"" + FileNameBox.Text + ".generated.h\"");
+            }
 
             // Add macros used for logging macros
             hResult.Append(NextLine);
