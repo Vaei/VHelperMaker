@@ -137,7 +137,7 @@ namespace VHelperMaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #if _MSC_VER
+        ///   Looks up a localized string similar to #if defined(_MSC_VER)
         ///#define LOG_FUNC_NAME TEXT(__FUNCTION__)
         ///#else
         ///#define LOG_FUNC_NAME TEXT(__func__)
